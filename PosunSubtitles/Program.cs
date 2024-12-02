@@ -17,8 +17,9 @@ namespace PosunSUB
             List<int> endFrames = new List<int>();
             const int fps = 25;
 
+            //precitaj subor, ziskaj riadky
             while (true)
-            {   //precitaj subor, ziskaj riadky
+            {
                 string riadok = reader.ReadLine();
                 if (riadok == null) break;
 
@@ -26,8 +27,10 @@ namespace PosunSUB
             }
             reader.Close();
 
+            //input od uzivatela
             Console.Write("O koľko sekúnd chcete posunúť titulky? (pri zápornych číslach sa posunú vzad): ");
             int pocetFramovPosunu = Convert.ToInt32(Convert.ToDouble(Console.ReadLine()) * fps);
+            Console.WriteLine("------------------------------------------------------------------------------");
 
             //ziskaj startFrames, endFrames
             for (int i = 0; i < riadky.Count; i++)
@@ -43,8 +46,13 @@ namespace PosunSUB
                 endFrames[i] += pocetFramovPosunu;
             }
 
+            //zmen riadky
+            for (int i = 0; i < riadky.Count; i++)
+                riadky[i] = "{"+startFrames[i]+"}{"+endFrames[i]+"}"+riadky[i].Split('}')[2];
+            
             //vypis do konzoly zmenene riadky
-
+            foreach (var i in riadky)
+                Console.WriteLine(i);
 
             //uloz nove data do noveho suboru
 
