@@ -10,12 +10,17 @@ namespace PosunSUB
         {
             //PREPISTE SI TO PROSIM
             string cesta = "C:\\Users\\lenovo\\Desktop\\posunSUB";
+            const int fps = 25;
 
-            StreamReader reader = new StreamReader(cesta + "\\titulky.sub");
+
+
+            Console.Write("Ako sa nazýva súbor? (napr. titulky.sub): ");
+            string nazovSuboru = Console.ReadLine();
+
+            StreamReader reader = new StreamReader(cesta + "\\" + nazovSuboru);
             List<string> riadky = new List<string>();
             List<int> startFrames = new List<int>();
             List<int> endFrames = new List<int>();
-            const int fps = 25;
 
             //precitaj subor, ziskaj riadky
             while (true)
@@ -53,11 +58,14 @@ namespace PosunSUB
             Console.Write("\nAko chcete pomenovať nový súbor? (Pozor aby ste neprepísali existujúci súbor!): ");
             string menoSuboru = Console.ReadLine();
 
-            StreamWriter writer = new StreamWriter(cesta + "\\"+ menoSuboru +".sub");
+                //ak input konci na .sub, nepridavaj .sub
+            StreamWriter writer = menoSuboru.EndsWith(".sub") ? new StreamWriter(cesta + "\\"+ menoSuboru) : new StreamWriter(cesta + "\\" + menoSuboru + ".sub");
             foreach (var riadok in riadky)
                 writer.WriteLine(riadok);
 
             writer.Close();
+
+            Console.WriteLine("\nNový súbor vytvorený na "+cesta+"\\"+menoSuboru);
         }
     }
 }
